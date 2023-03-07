@@ -40,12 +40,12 @@ app.post('/login', async (req, res) => {
 
 
 app.post('/profile', async (req, res) => {
-  const { email, name, age, password } = req.body;
+  const { email, name, age, sport, password } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
 
-  const user = new User({ email, name, age ,  password: hashedPassword });
+  const user = new User({ email, name, age , sport, password: hashedPassword });
 
   try {
     await user.save();
@@ -57,7 +57,7 @@ app.post('/profile', async (req, res) => {
 
 
 app.put('/profile', async (req, res) => {
-  const { email, name, age } = req.body;
+  const { email, name, age ,sport} = req.body;
 
   const user = await User.findOne({ email });
 
@@ -71,6 +71,9 @@ user.name = name;
 }
 if (age) {
 user.age = age;
+}
+if (sport) {
+user.sport = sport;
 }
 
 try {
